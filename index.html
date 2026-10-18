@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mini Library System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Mini Library System</h1>
+        <p>A Python project by <b>Tarun Chaudhary</b></p>
+    </header>
+
+    <section class="stats">
+        <div class="stat">
+            <span id="titleCount">0</span>
+            <small>titles</small>
+        </div>
+
+        <div class="stat">
+            <span id="copyCount">0</span>
+            <small>copies</small>
+        </div>
+    </section>
+
+    <section>
+        <h2>Add a Book</h2>
+
+        <div class="form">
+            <label for="t">Title</label>
+            <input id="t" type="text" placeholder="Enter book title">
+
+            <label for="a">Author</label>
+            <input id="a" type="text" placeholder="Enter author name">
+
+            <label for="c">Copies</label>
+            <input id="c" type="number" placeholder="Copies" value="1" min="1">
+
+            <button type="button" onclick="addBook()">Add</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Books on the Shelf</h2>
+        <div id="shelf"></div>
+    </section>
+
+    <footer>
+        <p>
+            Built with HTML, CSS and JavaScript.
+            The Python version lives on my GitHub.
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
