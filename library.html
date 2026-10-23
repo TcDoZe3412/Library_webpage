@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Directory</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000020;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #17365d;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 12px 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #libraryList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #libraryList li {
+            background: #eff6ff;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+        }
+
+        #message {
+            text-align: center;
+            color: #b91c1c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>📚 Library Directory</h1>
+
+        <h2>Add a Library</h2>
+
+        <form id="libraryForm">
+            <input
+                type="text"
+                id="libraryName"
+                placeholder="Enter library name"
+                required
+            >
+            <button type="submit">Add</button>
+        </form>
+
+        <p id="message"></p>
+
+        <h2>Available Libraries</h2>
+
+        <ul id="libraryList"></ul>
+    </div>
+
+    <script>
+        const form = document.getElementById("libraryForm");
+        const input = document.getElementById("libraryName");
+        const list = document.getElementById("libraryList");
+        const message = document.getElementById("message");
+
+        let libraries = JSON.parse(
+            localStorage.getItem("libraries")
+        ) || [];
+
+        function displayLibraries() {
+            list.replaceChildren();
+
+            libraries.forEach(function(name) {
+                const li = document.createElement("li");
+                li.textContent = name;
+                list.appendChild(li);
+            });
+        }
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = input.value.trim();
+
+            if (name === "") {
+                return;
+            }
+
+            const exists = libraries.some(function(library) {
+                return library.toLowerCase() === name.toLowerCase();
+            });
+
+            if (exists) {
+                message.textContent = "This library already exists.";
+                return;
+            }
+
+            libraries.push(name);
+
+            localStorage.setItem(
+                "libraries",
+                JSON.stringify(libraries)
+            );
+
+            displayLibraries();
+
+            input.value = "";
+            message.textContent = "";
+        });
+
+        displayLibraries();
+    </script>
+
+</body>
+</html>
